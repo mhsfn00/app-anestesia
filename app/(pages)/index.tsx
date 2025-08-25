@@ -6,13 +6,15 @@ export default function Index() {
   return (
     <View className="flex-1 justify-center items-center p-3">
         <MainButton 
-          title="Dosagem" 
+          title="Escolha de Medicamento e Cálculo de Dosagem" 
           color="bluePrimary"
+          height={200}
           icon="syringe" 
           onPress={() => router.navigate('/dosage')} />
         <MainButton 
-          title="Intoxicação" 
+          title="Sintomas de Intoxicação" 
           color="redPrimary" 
+          height={200}
           icon="alert"
           onPress={() => router.navigate('/intoxication')} />
     </View>
