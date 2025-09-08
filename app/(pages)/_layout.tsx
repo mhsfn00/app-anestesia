@@ -3,7 +3,7 @@ import { Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const routeTitles: Record<string, string> = {
-    index: "Início",
+    index: "SafeBlock-PA",
     dosage: "Dosagem",
     intoxication: "Intoxicação"
 }

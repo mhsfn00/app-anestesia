@@ -1,5 +1,5 @@
 export const colors = {
-    bluePrimary : "#82C8E5",
+    bluePrimary : "#1860CF",
     redPrimary : "#E23636",
     greenPrimary : "#82DD55"
 } 
