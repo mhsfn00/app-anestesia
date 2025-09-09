@@ -1,7 +1,6 @@
 import { router } from "expo-router";
 import { View } from "react-native";
 import MainButton from "../components/MainButton";
-import NavigationFooter from "../components/NavigationFooter";
 
 export default function Index() {
   return (
@@ -20,7 +19,6 @@ export default function Index() {
           icon="alert"
           onPress={() => router.navigate('/intoxication')} 
         />
-        <NavigationFooter />
     </View>
   );
 }

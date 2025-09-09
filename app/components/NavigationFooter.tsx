@@ -5,19 +5,14 @@ export default function NavigationFooter() {
   return (
     <View className="flex-row justify-center items-center">
         <FooterButton 
-            title="Label"
-            icon="star"
-            onPress={() => {}}
-        />
-        <FooterButton 
             title="Início"
             icon="home"
-            onPress={() => {}}
+            navigateTo="/home"
         />
         <FooterButton 
             title="Perfil"
             icon="user"
-            onPress={() => {}}
+            navigateTo="/intoxication"
         />
     </View>
   );

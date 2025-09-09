@@ -1,6 +1,6 @@
+import { Href, router, useSegments } from "expo-router";
 import { HouseIcon, Star, User } from "lucide-react-native";
-// Star, User
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { colors } from "../constants/colors";
 
 const icons = {
@@ -13,34 +13,58 @@ type IconName = keyof typeof icons;
 type FooterButtonProps = {
     title: string;
     icon: IconName;
-    onPress: () => void;
+    navigateTo: Href;
 }
 
-export default function FooterButton({ title, icon, onPress }: FooterButtonProps) {
-    const IconComponent = icons[icon];
+const handlePress = (goTo: Href) => {
+    router.navigate(goTo);
+}
 
+export default function FooterButton({ title, icon, navigateTo }: FooterButtonProps) {
+    const IconComponent = icons[icon];
+    const segments = useSegments();
+    const currentSegment = segments.length > 0 ? segments[segments.length - 1] : "home";
+    const currentRoute = "/" + currentSegment;
+    
     return (
-        <View className="w-1/3 flex-col justify-center items-center">
+        <Pressable 
+            className="w-1/3 flex-col justify-center items-center"
+            onPress={() => {handlePress(navigateTo)}}
+        >
             <View
-                className="w-3/5 my-1 py-2 flex-row justify-center rounded-l-full rounded-r-full"
-                style={style.active} 
+                style={[styles.default, currentRoute === navigateTo && styles.active]}
             >
-                <IconComponent 
+                <IconComponent
                     size={26}
                     strokeWidth={2}
-                    color={"white"}
+                    color={currentRoute === navigateTo ? "white" : "black"}
                 />
             </View>
             <Text className="font-semibold">
                 { title }
             </Text>
-        </View>
+        </Pressable>
     );
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
+    default: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        borderRadius: 50,
+        backgroundColor: colors.backgroundDefault,
+        marginVertical: 5,
+        paddingVertical: 5,
+        width: 60
+    },
+
     active: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        borderRadius: 50,
         backgroundColor: colors.bluePrimary,
-        color: "white"
-    }
+        marginVertical: 5,
+        paddingVertical: 5,
+        width: 60
+    },
 })
