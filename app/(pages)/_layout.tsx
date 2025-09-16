@@ -5,14 +5,14 @@ import NavigationFooter from "../components/NavigationFooter";
 import { colors } from "../constants/colors";
 
 const routeTitles: Record<string, string> = {
-    index: "SafeBlock-PA",
+    home: "SafeBlock-PA",
     dosage: "Dosagem",
     intoxication: "Intoxicação"
 }
 
 export default function PagesLayout() {
     const segments = useSegments();
-    const routeKey = segments[segments.length -1] || "index";
+    const routeKey = segments[segments.length -1] || "home";
     const title = routeTitles[routeKey] || "SafeBlock-PA";
 
     return (
