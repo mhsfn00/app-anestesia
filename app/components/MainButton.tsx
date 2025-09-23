@@ -10,13 +10,14 @@ type IconName = keyof typeof icons;
 
 type MainButtonProps = {
     title: string;
+    subTitle: string;
     color: keyof typeof colors;
     height: number;
     icon: IconName;
     onPress: () => void;
 }
 
-export default function MainButton({ title, onPress, color, icon, height }: MainButtonProps) {
+export default function MainButton({ title, subTitle, onPress, color, icon, height }: MainButtonProps) {
   const buttonColor = colors[color];
   const IconComponent = icons[icon];
 
@@ -27,21 +28,22 @@ export default function MainButton({ title, onPress, color, icon, height }: Main
         backgroundColor: buttonColor,
         height: height
       }} 
-      className="w-full m-2 flex-row items-center justify-center rounded-xl shadow-md shadow-black"
+      className="w-full m-2 flex-col items-center justify-center rounded-xl"
     >
-        <View className="w-1/3 flex-row justify-center">
-          <View className="bg-white rounded-full p-5 flex-row">
-              <IconComponent
-                size={60}
-                color={buttonColor}
-              />
-          </View>
-        </View>
-        <View className="w-2/3">
-          <Text className='p-10 text-xl text-white text-center'>
-              {title}
-          </Text>
-        </View>
+      <View className="flex-row w-4/5">
+        <IconComponent
+          size={35}
+          color={"white"}
+        />
+        <Text className='text-white align-middle text-2xl font-medium text-center w-full'>
+            {title}
+        </Text>
+      </View>
+      <View className="w-4/5 mt-4">
+        <Text className='text-white text-base text-justify'>
+            {subTitle}
+        </Text>
+      </View>
     </TouchableOpacity>
   )
 }

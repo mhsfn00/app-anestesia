@@ -6,18 +6,12 @@ export default function Index() {
   return (
     <View className="flex-1 justify-between items-center p-3">
         <MainButton 
-          title="Escolha de Medicamento e Cálculo de Dosagem" 
+          title="Anestesia Local" 
+          subTitle="Desejo realizar uma anestesia local - Cálculo de dose e ajustes"
           color="bluePrimary"
-          height={200}
+          height={150}
           icon="syringe" 
           onPress={() => router.navigate('/dosage')} 
-        />
-        <MainButton 
-          title="Sintomas de Intoxicação" 
-          color="redPrimary" 
-          height={200}
-          icon="alert"
-          onPress={() => router.navigate('/intoxication')} 
         />
     </View>
   );
