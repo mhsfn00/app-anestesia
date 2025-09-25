@@ -4,14 +4,27 @@ import MainButton from "../components/MainButton";
 
 export default function Index() {
   return (
-    <View className="flex-1 justify-between items-center p-3">
+    <View className="flex-1 justify-center items-center p-3">
         <MainButton 
           title="Anestesia Local" 
           subTitle="Desejo realizar uma anestesia local - Cálculo de dose e ajustes"
           color="bluePrimary"
-          height={150}
           icon="syringe" 
           onPress={() => router.navigate('/dosage')} 
+        />
+        <MainButton 
+          title="Sugestões Técnicas" 
+          subTitle="Desejo sugestão de técnica para infiltração de anestésico local"
+          color="bluePrimary"
+          icon="messageSquare" 
+          onPress={() => router.navigate('/suggestions')} //navigate('/suggestions') 
+        />
+        <MainButton 
+          title="Sintomas de Intoxicação" 
+          subTitle="Desejo checar sintomas de intoxicação por anestésicos locais"
+          color="bluePrimary"
+          icon="shield" 
+          onPress={() => router.navigate('/intoxication')} 
         />
     </View>
   );

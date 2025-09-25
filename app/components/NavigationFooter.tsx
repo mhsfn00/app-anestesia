@@ -12,7 +12,7 @@ export default function NavigationFooter() {
         <FooterButton 
             title="Perfil"
             icon="user"
-            navigateTo="/intoxication"
+            navigateTo="/userProfile"
         />
     </View>
   );

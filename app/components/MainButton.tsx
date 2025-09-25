@@ -1,10 +1,11 @@
-import { AlertTriangle, Syringe } from "lucide-react-native";
+import { MessageSquareWarning, ShieldPlus, Syringe } from "lucide-react-native";
 import { Text, TouchableOpacity, View } from 'react-native';
 import { colors } from "../constants/colors";
 
 const icons = {
   syringe: Syringe,
-  alert: AlertTriangle
+  shield: ShieldPlus,
+  messageSquare: MessageSquareWarning
 }
 type IconName = keyof typeof icons;
 
@@ -12,12 +13,11 @@ type MainButtonProps = {
     title: string;
     subTitle: string;
     color: keyof typeof colors;
-    height: number;
     icon: IconName;
     onPress: () => void;
 }
 
-export default function MainButton({ title, subTitle, onPress, color, icon, height }: MainButtonProps) {
+export default function MainButton({ title, subTitle, onPress, color, icon }: MainButtonProps) {
   const buttonColor = colors[color];
   const IconComponent = icons[icon];
 
@@ -25,17 +25,16 @@ export default function MainButton({ title, subTitle, onPress, color, icon, heig
     <TouchableOpacity 
       onPress={onPress}
       style={{ 
-        backgroundColor: buttonColor,
-        height: height
+        backgroundColor: buttonColor
       }} 
-      className="w-full m-2 flex-col items-center justify-center rounded-xl"
+      className="w-full m-2 py-6 flex-col items-center justify-center rounded-xl"
     >
       <View className="flex-row w-4/5">
         <IconComponent
           size={35}
           color={"white"}
         />
-        <Text className='text-white align-middle text-2xl font-medium text-center w-full'>
+        <Text className='text-white align-middle text-2xl font-medium w-full pl-8'>
             {title}
         </Text>
       </View>
