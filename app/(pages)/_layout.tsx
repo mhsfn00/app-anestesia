@@ -1,17 +1,19 @@
 import { Stack, useSegments } from "expo-router";
 import { Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import NavigationFooter from "../components/NavigationFooter";
+import { colors } from "../constants/colors";
 
 const routeTitles: Record<string, string> = {
-    index: "Início",
+    home: "SafeBlock-PA",
     dosage: "Dosagem",
     intoxication: "Intoxicação"
 }
 
 export default function PagesLayout() {
     const segments = useSegments();
-    const routeKey = segments[segments.length -1] || "index";
-    const title = routeTitles[routeKey] || "Início";
+    const routeKey = segments[segments.length -1] || "home";
+    const title = routeTitles[routeKey] || "SafeBlock-PA";
 
     return (
         <SafeAreaView className="flex-1">
@@ -20,7 +22,12 @@ export default function PagesLayout() {
                     {title}
                 </Text>
             </View>
-            <Stack screenOptions={{ headerShown: false }} />
+            <Stack screenOptions={{ 
+                headerShown: false,
+                contentStyle: { backgroundColor: colors.backgroundDefault }
+            }} 
+            />
+            <NavigationFooter />
         </SafeAreaView>
     )
 }
