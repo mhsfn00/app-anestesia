@@ -6,7 +6,7 @@ import { colors } from "../constants/colors";
 
 const routeTitles: Record<string, string> = {
     home: "SafeBlock-PA",
-    dosage: "Dosagem",
+    anesthInformation: "Anestesia Local",
     intoxication: "Intoxicação"
 }
 

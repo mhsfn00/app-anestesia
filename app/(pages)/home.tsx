@@ -10,14 +10,14 @@ export default function Index() {
           subTitle="Desejo realizar uma anestesia local - Cálculo de dose e ajustes"
           color="bluePrimary"
           icon="syringe" 
-          onPress={() => router.navigate('/dosage')} 
+          onPress={() => router.navigate('/anesthInformation')} 
         />
         <MainButton 
           title="Sugestões Técnicas" 
           subTitle="Desejo sugestão de técnica para infiltração de anestésico local"
           color="bluePrimary"
           icon="messageSquare" 
-          onPress={() => router.navigate('/suggestions')} //navigate('/suggestions') 
+          onPress={() => router.navigate('/suggestions')}
         />
         <MainButton 
           title="Sintomas de Intoxicação" 
