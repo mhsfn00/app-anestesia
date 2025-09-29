@@ -1,0 +1,94 @@
+import { AntDesign } from '@expo/vector-icons';
+import React, { useCallback, useState } from 'react';
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
+type OptionItem = { value: string; label: string};
+
+interface DropDownProps {
+    data: OptionItem[];
+    onChange: (item: OptionItem) => void;
+    placeholder: string;
+}
+
+export default function DropDown({data, onChange, placeholder}: DropDownProps) {
+    const [expanded, setExpanded] = useState(false);
+    const toggleExpanded = useCallback(() => setExpanded(!expanded), [expanded]);
+    const [value, setValue] = useState("");
+
+    const onSelect = useCallback((item: OptionItem) => {
+        onChange(item);
+        setValue(item.label);
+        setExpanded(false);
+    }, [])
+
+    return (
+        <View>
+            <TouchableOpacity 
+                style={styles.button} 
+                activeOpacity={0.8} 
+                onPress={toggleExpanded}
+            >
+                <Text style={styles.text}>
+                    {value || placeholder}
+                </Text>
+                <AntDesign name={ expanded ? "caret-up" : "caret-down" } />
+            </TouchableOpacity>
+            { expanded ? (
+                <View style={styles.options}>
+                    <FlatList
+                        keyExtractor = {(item) => item.value}
+                        data={data}
+                        renderItem={({ item }) => (
+                            <TouchableOpacity 
+                                activeOpacity={0.8} 
+                                style={styles.optionsItem}
+                                onPress={() => onSelect(item)}
+                            >
+                                <Text>{ item.label }</Text>
+                            </TouchableOpacity>
+                        )}
+                        ItemSeparatorComponent={() => <View style={styles.separator} />}
+                    />
+                </View>
+            ) : null }
+        </View>   
+)}
+
+const styles = StyleSheet.create({
+    optionsItem: {
+        height: 50,
+        justifyContent: "center",
+        borderWidth: 0.5,
+        paddingLeft: 16 
+    },
+    separator: {
+        height: 0
+    },
+    options: {
+        position: "absolute",
+        top: 53,
+        backgroundColor: "white",
+        width: "100%",
+        borderRadius: 6,
+        maxHeight: 250,
+        borderWidth: 1,
+        borderTopLeftRadius: 0,
+        borderTopRightRadius: 0,
+    },
+    text: {
+        fontSize: 15,
+        opacity: 0.8
+    },
+    button: {
+        height: 50,
+        justifyContent: "space-between",
+        backgroundColor: "#fff",
+        flexDirection: "row",
+        width: "100%",
+        alignItems: "center",
+        paddingHorizontal: 15,
+        borderRadius: 4,
+        borderWidth: 1,
+        marginVertical: 6
+    }
+})
