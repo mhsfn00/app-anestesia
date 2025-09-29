@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, View } from 'react-native';
+import { SegmentedButtons } from 'react-native-paper';
 import DropDown from '../components/DropDown';
 import TextInputBlack from '../components/InputTextBlack';
 import SecondaryButton from '../components/SecondaryButton';
@@ -12,6 +13,8 @@ const timeOptions = [
 ]
 
 const Dosage = () => {
+  const [gender , setGender] = useState<string>("");
+
   return (
     <View className='flex-col justify-center items-center mx-6 bg-green-200 gap-3'>
       <View className='flex-row'>
@@ -50,8 +53,20 @@ const Dosage = () => {
           onChange={()=>{}}
         />
       </View>
-      <View className='flex-row'>
+      <View className='flex-col w-full'>
         <Text>Gênero do Paciente</Text>
+        <SegmentedButtons
+          value={gender}
+          onValueChange={setGender}
+          buttons={[
+            { value: 'female', label: 'Feminino', showSelectedCheck: true, checkedColor: 'white', 
+              style: { borderRadius: 5, backgroundColor: gender === 'female' ? "blue" : 'transparent'}},
+            { value: 'male', label: 'Masculino', showSelectedCheck: true, checkedColor: 'white', 
+              style: { backgroundColor: gender === 'male' ? "blue" : 'transparent'}},
+            { value: 'other', label: 'Outro', showSelectedCheck: true, checkedColor: 'white', 
+              style: { borderRadius: 5, backgroundColor: gender === 'other' ? "blue" : 'transparent'}}
+          ]}
+        />
       </View>
     </View>
   )

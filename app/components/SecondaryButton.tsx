@@ -32,7 +32,7 @@ export default function SecondaryButton({ title, onPress, color, leftIcon, right
       style={{ 
         backgroundColor: buttonColor
       }} 
-      className="w-full my-2 flex-row items-center justify-between rounded-xl p-5"
+      className="w-full my-2 flex-row items-center justify-between rounded-xl px-6 py-4"
     >
       <LeftIconComponent 
         color={'white'}
