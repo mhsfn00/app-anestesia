@@ -1,7 +1,8 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 import DropDown from '../components/DropDown';
 import TextInputBlack from '../components/InputTextBlack';
+import SecondaryButton from '../components/SecondaryButton';
 
 const timeOptions = [
   { label: "< 60 minutos", value: "t<60"},
@@ -26,12 +27,31 @@ const Dosage = () => {
           label='Peso (Kg.g)'
         />
       </View>
+      <View className='flex-col w-full'>
+        <SecondaryButton
+          title='Medicação de Uso Contínuo'
+          color='bluePrimary'
+          leftIcon='pillBottle'
+          rightNumber={0}
+          onPress={console.log}
+        />
+        <SecondaryButton
+          title='Outras Comorbidades'
+          color='bluePrimary'
+          leftIcon='heartPulse'
+          rightNumber={0}
+          onPress={()=>{}}
+        />
+      </View>
       <View className='flex-row'>
         <DropDown
           data={timeOptions}
           placeholder='Tempo aproximado de sutura'
-          onChange={console.log}
+          onChange={()=>{}}
         />
+      </View>
+      <View className='flex-row'>
+        <Text>Gênero do Paciente</Text>
       </View>
     </View>
   )
