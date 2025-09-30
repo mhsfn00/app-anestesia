@@ -17,14 +17,16 @@ type IconName = keyof typeof icons;
 type SecondaryButtonProps = {
     title: string;
     color: keyof typeof colors;
-    leftIcon: IconName;
+    leftIcon?: IconName;
     rightNumber?: number;
+    rightIcon?: IconName;
     onPress: () => void;
 }
 
-export default function SecondaryButton({ title, onPress, color, leftIcon, rightNumber }: SecondaryButtonProps) {
+export default function SecondaryButton({ title, onPress, color, leftIcon, rightIcon, rightNumber }: SecondaryButtonProps) {
   const buttonColor = colors[color];
-  const LeftIconComponent =  icons[leftIcon];
+  const LeftIconComponent =  leftIcon ? icons[leftIcon] : null;
+  const RightIconComponent =  rightIcon ? icons[rightIcon] : null;
 
   return (
     <TouchableOpacity 
@@ -32,14 +34,18 @@ export default function SecondaryButton({ title, onPress, color, leftIcon, right
       style={{ 
         backgroundColor: buttonColor
       }} 
-      className="w-full my-2 flex-row items-center justify-between rounded-xl px-6 py-4"
+      className="my-2 flex-row items-center justify-between rounded-xl px-6 py-4 gap-6"
     >
-      <LeftIconComponent 
-        color={'white'}
-        className="bg-green-500"
-      />
+      {LeftIconComponent && 
+        <LeftIconComponent color={'white'} />
+      }
       <Text className="text-white font-semibold">{ title }</Text>
-      <Text className="text-white font-semibold text-xl">{ rightNumber }</Text>
+      {RightIconComponent && 
+        <RightIconComponent color='white' />
+      }
+      {rightNumber !== undefined && (
+        <Text className="text-white font-semibold ml-2">{rightNumber}</Text>
+      )}
     </TouchableOpacity>
   )
 }

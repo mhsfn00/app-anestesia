@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Text, View } from 'react-native';
-import { SegmentedButtons } from 'react-native-paper';
+import { Checkbox, SegmentedButtons } from 'react-native-paper';
 import DropDown from '../components/DropDown';
 import TextInputBlack from '../components/InputTextBlack';
 import SecondaryButton from '../components/SecondaryButton';
@@ -36,7 +36,7 @@ const Dosage = () => {
           color='bluePrimary'
           leftIcon='pillBottle'
           rightNumber={0}
-          onPress={console.log}
+          onPress={()=>{}}
         />
         <SecondaryButton
           title='Outras Comorbidades'
@@ -66,6 +66,24 @@ const Dosage = () => {
             { value: 'other', label: 'Outro', showSelectedCheck: true, checkedColor: 'white', 
               style: { borderRadius: 5, backgroundColor: gender === 'other' ? "blue" : 'transparent'}}
           ]}
+        />
+        <Checkbox.Item 
+          label="Gestante" 
+          status="unchecked" 
+        />
+      </View>
+      <View className='flex-row w-full justify-between'>
+        <SecondaryButton 
+          title='Voltar'
+          leftIcon='arrowLeft'
+          color='redPrimary'
+          onPress={() => {}}
+        />
+        <SecondaryButton 
+          title='Avançar'
+          rightIcon='arrowRight'
+          color='greenPrimary'
+          onPress={() => {}}
         />
       </View>
     </View>
