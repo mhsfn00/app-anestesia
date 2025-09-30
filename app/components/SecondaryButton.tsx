@@ -1,5 +1,5 @@
 import { ArrowBigLeft, ArrowBigRight, Check, HeartPulse, PencilLine, Pill, PillBottle, X } from "lucide-react-native";
-import { Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { colors } from "../constants/colors";
 
 const icons = {
@@ -17,13 +17,14 @@ type IconName = keyof typeof icons;
 type SecondaryButtonProps = {
     title: string;
     color: keyof typeof colors;
+    customJustify?: "center";
     leftIcon?: IconName;
     rightNumber?: number;
     rightIcon?: IconName;
     onPress: () => void;
 }
 
-export default function SecondaryButton({ title, onPress, color, leftIcon, rightIcon, rightNumber }: SecondaryButtonProps) {
+export default function SecondaryButton({ title, onPress, color, leftIcon, rightIcon, rightNumber, customJustify }: SecondaryButtonProps) {
   const buttonColor = colors[color];
   const LeftIconComponent =  leftIcon ? icons[leftIcon] : null;
   const RightIconComponent =  rightIcon ? icons[rightIcon] : null;
@@ -31,21 +32,37 @@ export default function SecondaryButton({ title, onPress, color, leftIcon, right
   return (
     <TouchableOpacity 
       onPress={onPress}
-      style={{ 
-        backgroundColor: buttonColor
-      }} 
-      className="my-2 flex-row items-center justify-between rounded-xl px-6 py-4 gap-6"
+      style={[styles.buttonContainer, { backgroundColor: buttonColor, justifyContent: customJustify || 'space-between' }]}
     >
       {LeftIconComponent && 
-        <LeftIconComponent color={'white'} />
+        <LeftIconComponent color='white' />
       }
-      <Text className="text-white font-semibold">{ title }</Text>
+      <Text style={styles.textContainer}>{ title }</Text>
       {RightIconComponent && 
         <RightIconComponent color='white' />
       }
       {rightNumber !== undefined && (
-        <Text className="text-white font-semibold ml-2">{rightNumber}</Text>
+        <Text style={styles.textContainer}>{rightNumber}</Text>
       )}
     </TouchableOpacity>
   )
 }
+
+const styles = StyleSheet.create({
+  textContainer: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 14
+  },
+  buttonContainer: {
+    marginVertical: 8,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderRadius: 4,
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    gap: 15 
+  }
+});

@@ -4,6 +4,7 @@ import { Checkbox, SegmentedButtons } from 'react-native-paper';
 import DropDown from '../components/DropDown';
 import TextInputBlack from '../components/InputTextBlack';
 import SecondaryButton from '../components/SecondaryButton';
+import { colors } from '../constants/colors';
 
 const timeOptions = [
   { label: "< 60 minutos", value: "t<60"},
@@ -14,6 +15,37 @@ const timeOptions = [
 
 const Dosage = () => {
   const [gender , setGender] = useState<string>("");
+  const genderButtons = [
+    { value: 'female', 
+      label: 'Feminino',  
+      checkedColor: gender === 'female' ? 'white' : undefined, 
+      style: { 
+        borderRadius: 5, 
+        backgroundColor: gender === 'female' ? colors.bluePrimary : 'transparent',
+        padding: 4
+      },
+      labelStyle: { fontSize: 14, fontWeight: 'bold' }
+    },
+    { value: 'male', 
+      label: 'Masculino', 
+      checkedColor: gender === 'male' ? 'white' : undefined, 
+      style: { 
+        backgroundColor: gender === 'male' ? colors.bluePrimary : 'transparent',
+        padding: 4
+      },
+      labelStyle: { fontSize: 14, fontWeight: 'bold' }
+    },
+    { value: 'other', 
+      label: 'Outro', 
+      checkedColor: gender === 'other' ? 'white' : undefined, 
+      style: { 
+        borderRadius: 5, 
+        backgroundColor: gender === 'other' ? colors.bluePrimary : 'transparent',
+        padding: 4
+      },
+      labelStyle: { fontSize: 14, fontWeight: 'bold' }
+    }
+  ];
 
   return (
     <View className='flex-col justify-center items-center mx-6 bg-green-200 gap-3'>
@@ -58,33 +90,34 @@ const Dosage = () => {
         <SegmentedButtons
           value={gender}
           onValueChange={setGender}
-          buttons={[
-            { value: 'female', label: 'Feminino', showSelectedCheck: true, checkedColor: 'white', 
-              style: { borderRadius: 5, backgroundColor: gender === 'female' ? "blue" : 'transparent'}},
-            { value: 'male', label: 'Masculino', showSelectedCheck: true, checkedColor: 'white', 
-              style: { backgroundColor: gender === 'male' ? "blue" : 'transparent'}},
-            { value: 'other', label: 'Outro', showSelectedCheck: true, checkedColor: 'white', 
-              style: { borderRadius: 5, backgroundColor: gender === 'other' ? "blue" : 'transparent'}}
-          ]}
+          buttons={genderButtons}
         />
-        <Checkbox.Item 
-          label="Gestante" 
-          status="unchecked" 
-        />
+        { (gender === 'female' || gender === 'other') && 
+          <Checkbox.Item 
+            label="Gestante" 
+            status="unchecked" 
+          />
+        }
       </View>
       <View className='flex-row w-full justify-between'>
-        <SecondaryButton 
-          title='Voltar'
-          leftIcon='arrowLeft'
-          color='redPrimary'
-          onPress={() => {}}
-        />
-        <SecondaryButton 
-          title='Avançar'
-          rightIcon='arrowRight'
-          color='greenPrimary'
-          onPress={() => {}}
-        />
+        <View className='w-2/5'>
+          <SecondaryButton
+            title='Voltar'
+            leftIcon='arrowLeft'
+            color='redPrimary'
+            customJustify='center'
+            onPress={() => {}}
+          />
+        </View>
+        <View className='w-2/5'>
+          <SecondaryButton
+            title='Avançar'
+            rightIcon='arrowRight'
+            color='greenPrimary'
+            customJustify='center'
+            onPress={() => {}}
+          />
+        </View>
       </View>
     </View>
   )
