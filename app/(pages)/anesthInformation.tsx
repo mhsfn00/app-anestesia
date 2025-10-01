@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
+import { Text, TextStyle, View } from 'react-native';
 import { Checkbox, SegmentedButtons } from 'react-native-paper';
 import DropDown from '../components/DropDown';
 import TextInputBlack from '../components/InputTextBlack';
@@ -13,6 +13,8 @@ const timeOptions = [
   { label: "> 4 horas", value: "4<t"}
 ]
 
+const genderLabelStyle: TextStyle = { fontSize: 14, fontWeight: 700 };
+
 const Dosage = () => {
   const [gender , setGender] = useState<string>("");
   const genderButtons = [
@@ -24,7 +26,7 @@ const Dosage = () => {
         backgroundColor: gender === 'female' ? colors.bluePrimary : 'transparent',
         padding: 4
       },
-      labelStyle: { fontSize: 14, fontWeight: 'bold' }
+      labelStyle: genderLabelStyle
     },
     { value: 'male', 
       label: 'Masculino', 
@@ -33,7 +35,7 @@ const Dosage = () => {
         backgroundColor: gender === 'male' ? colors.bluePrimary : 'transparent',
         padding: 4
       },
-      labelStyle: { fontSize: 14, fontWeight: 'bold' }
+      labelStyle: genderLabelStyle
     },
     { value: 'other', 
       label: 'Outro', 
@@ -43,7 +45,7 @@ const Dosage = () => {
         backgroundColor: gender === 'other' ? colors.bluePrimary : 'transparent',
         padding: 4
       },
-      labelStyle: { fontSize: 14, fontWeight: 'bold' }
+      labelStyle: genderLabelStyle
     }
   ];
 

@@ -19,7 +19,7 @@ export default function DropDown({data, onChange, placeholder}: DropDownProps) {
         onChange(item);
         setValue(item.label);
         setExpanded(false);
-    }, [])
+    }, [onChange]);
 
     return (
         <View>
