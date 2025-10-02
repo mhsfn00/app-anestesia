@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Text, TextStyle, View } from 'react-native';
 import { Checkbox, SegmentedButtons } from 'react-native-paper';
+import DefaultActions from '../components/DefaultActions';
 import DropDown from '../components/DropDown';
 import TextInputBlack from '../components/InputTextBlack';
 import SecondaryButton from '../components/SecondaryButton';
@@ -50,77 +51,66 @@ const Dosage = () => {
   ];
 
   return (
-    <View className='flex-col justify-center items-center mx-6 bg-green-200 gap-3'>
-      <View className='flex-row'>
-        <TextInputBlack
-          label='Identificação do Paciente'
-        />
-      </View>
-      <View className='flex-row gap-5'>
-        <TextInputBlack 
-          label='Idade'
-        />
-        <TextInputBlack 
-          label='Peso (Kg.g)'
-        />
-      </View>
-      <View className='flex-col w-full'>
-        <SecondaryButton
-          title='Medicação de Uso Contínuo'
-          color='bluePrimary'
-          leftIcon='pillBottle'
-          rightNumber={0}
-          onPress={()=>{}}
-        />
-        <SecondaryButton
-          title='Outras Comorbidades'
-          color='bluePrimary'
-          leftIcon='heartPulse'
-          rightNumber={0}
-          onPress={()=>{}}
-        />
-      </View>
-      <View className='flex-row'>
-        <DropDown
-          data={timeOptions}
-          placeholder='Tempo aproximado de sutura'
-          onChange={()=>{}}
-        />
-      </View>
-      <View className='flex-col w-full'>
-        <Text>Gênero do Paciente</Text>
-        <SegmentedButtons
-          value={gender}
-          onValueChange={setGender}
-          buttons={genderButtons}
-        />
-        { (gender === 'female' || gender === 'other') && 
-          <Checkbox.Item 
-            label="Gestante" 
-            status="unchecked" 
-          />
-        }
-      </View>
-      <View className='flex-row w-full justify-between'>
-        <View className='w-2/5'>
-          <SecondaryButton
-            title='Voltar'
-            leftIcon='arrowLeft'
-            color='redPrimary'
-            customJustify='center'
-            onPress={() => {}}
+    <View className='flex-1 justify-between mx-6 bg-green-200'>
+      <View className='gap-6'>
+        <View className='flex-row'>
+          <TextInputBlack
+            label='Identificação do Paciente'
           />
         </View>
-        <View className='w-2/5'>
-          <SecondaryButton
-            title='Avançar'
-            rightIcon='arrowRight'
-            color='greenPrimary'
-            customJustify='center'
-            onPress={() => {}}
+        <View className='flex-row gap-5'>
+          <TextInputBlack
+            label='Idade'
+          />
+          <TextInputBlack
+            label='Peso (Kg.g)'
           />
         </View>
+        <View className='flex-col w-full'>
+          <SecondaryButton
+            title='Medicação de Uso Contínuo'
+            color='bluePrimary'
+            leftIcon='pillBottle'
+            rightNumber={0}
+            onPress={()=>{}}
+          />
+          <SecondaryButton
+            title='Outras Comorbidades'
+            color='bluePrimary'
+            leftIcon='heartPulse'
+            rightNumber={0}
+            onPress={()=>{}}
+          />
+        </View>
+        <View className='flex-row'>
+          <DropDown
+            data={timeOptions}
+            placeholder='Tempo aproximado de sutura'
+            onChange={()=>{}}
+          />
+        </View>
+        <View className='flex-col w-full'>
+          <Text className='font-bold text-md text-center pb-4'>Gênero do Paciente</Text>
+          <SegmentedButtons
+            value={gender}
+            onValueChange={setGender}
+            buttons={genderButtons}
+          />
+          { (gender === 'female' || gender === 'other') &&
+            <View style={{ borderBottomWidth: 1, borderBottomColor: '#e5e5e5' }}>
+  <Checkbox.Item
+    label="Gestante"
+    status="unchecked"
+    onPress={() => {}}
+    labelStyle={{ fontSize: 16, fontWeight: '500', color: '#333' }}
+    color="#007AFF"
+  />
+</View>
+
+          }
+        </View>
       </View>
+      <DefaultActions />
     </View>
   )
 }
