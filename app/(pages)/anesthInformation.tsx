@@ -96,21 +96,22 @@ const Dosage = () => {
             onValueChange={setGender}
             buttons={genderButtons}
           />
-          { (gender === 'female' || gender === 'other') &&
+          {(gender === 'female' || gender === 'other') &&
             <View style={{ borderBottomWidth: 1, borderBottomColor: '#e5e5e5' }}>
-  <Checkbox.Item
-    label="Gestante"
-    status="unchecked"
-    onPress={() => {}}
-    labelStyle={{ fontSize: 16, fontWeight: '500', color: '#333' }}
-    color="#007AFF"
-  />
-</View>
-
-          }
+            <Checkbox.Item
+              label="Gestante"
+              status="unchecked"
+              onPress={() => {}}
+              labelStyle={{ fontSize: 16, fontWeight: '500', color: '#333' }}
+              color="#007AFF"
+            />
+          </View>}
         </View>
       </View>
-      <DefaultActions />
+      <DefaultActions
+        onGreenPress={() => {console.log('Avançar')}}
+        onRedPress={() => {console.log('Voltar')}}
+      />
     </View>
   )
 }
