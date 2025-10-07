@@ -17,6 +17,7 @@ const timeOptions = [
 const genderLabelStyle: TextStyle = { fontSize: 14, fontWeight: 700 };
 
 const Dosage = () => {
+  const [gestante, setGestante] = useState(false);
   const [gender , setGender] = useState<string>("");
   const genderButtons = [
     { value: 'female', 
@@ -51,7 +52,7 @@ const Dosage = () => {
   ];
 
   return (
-    <View className='flex-1 justify-between mx-6 bg-green-200'>
+    <View className='flex-1 justify-between mx-6'>
       <View className='gap-6'>
         <View className='flex-row'>
           <TextInputBlack
@@ -97,13 +98,13 @@ const Dosage = () => {
             buttons={genderButtons}
           />
           {(gender === 'female' || gender === 'other') &&
-            <View style={{ borderBottomWidth: 1, borderBottomColor: '#e5e5e5' }}>
+            <View style={{ borderWidth: 1, borderRadius: 5, marginVertical: 16 }}>
             <Checkbox.Item
               label="Gestante"
-              status="unchecked"
-              onPress={() => {}}
+              status={gestante ? 'checked' : 'unchecked'}
+              onPress={() => {setGestante(!gestante)}}
               labelStyle={{ fontSize: 16, fontWeight: '500', color: '#333' }}
-              color="#007AFF"
+              color={colors.bluePrimary}
             />
           </View>}
         </View>

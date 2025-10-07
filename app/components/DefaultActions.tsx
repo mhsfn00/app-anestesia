@@ -34,7 +34,7 @@ export default function DefaultActions({
                 <SecondaryButton
                 title={greenButtonlabel}
                 rightIcon={greenButtonIcon}
-                color='greenPrimary'
+                color='bluePrimary'
                 customJustify='center'
                 onPress={onGreenPress}
             />

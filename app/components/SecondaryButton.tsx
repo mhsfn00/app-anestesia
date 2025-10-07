@@ -32,14 +32,18 @@ export default function SecondaryButton({ title, onPress, color, leftIcon, right
   return (
     <TouchableOpacity 
       onPress={onPress}
-      style={[styles.buttonContainer, { backgroundColor: buttonColor, justifyContent: customJustify || 'space-between' }]}
+      style={[
+        styles.buttonContainer, 
+        { backgroundColor: buttonColor, justifyContent: customJustify || 'space-between' },
+        { borderWidth: color=='redPrimary' ? 1 : 0}
+      ]}
     >
       {LeftIconComponent && 
-        <LeftIconComponent color='white' />
+        <LeftIconComponent color={color=='bluePrimary' ? 'white' : 'black'} />
       }
-      <Text style={styles.textContainer}>{ title }</Text>
+      <Text style={[styles.textContainer, {color: color=='bluePrimary' ? 'white' : 'black'}]}>{ title }</Text>
       {RightIconComponent && 
-        <RightIconComponent color='white' />
+        <RightIconComponent color={color=='bluePrimary' ? 'white' : 'black'} />
       }
       {rightNumber !== undefined && (
         <Text style={styles.textContainer}>{rightNumber}</Text>
@@ -50,7 +54,6 @@ export default function SecondaryButton({ title, onPress, color, leftIcon, right
 
 const styles = StyleSheet.create({
   textContainer: {
-    color: 'white',
     fontWeight: 'bold',
     fontSize: 14
   },
