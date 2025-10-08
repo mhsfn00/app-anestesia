@@ -25,7 +25,7 @@ export default function DefaultActions({
                 <SecondaryButton
                 title={redButtonLabel}
                 leftIcon={redButtonIcon}
-                color='redPrimary'
+                connotation='cancel'
                 customJustify='center'
                 onPress={onRedPress}
             />
@@ -34,7 +34,7 @@ export default function DefaultActions({
                 <SecondaryButton
                 title={greenButtonlabel}
                 rightIcon={greenButtonIcon}
-                color='bluePrimary'
+                connotation='save'
                 customJustify='center'
                 onPress={onGreenPress}
             />

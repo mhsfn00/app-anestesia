@@ -1,6 +1,6 @@
 import { ArrowBigLeft, ArrowBigRight, Check, HeartPulse, PencilLine, Pill, PillBottle, X } from "lucide-react-native";
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { colors } from "../constants/colors";
+import { colors } from '../constants/colors';
 
 const icons = {
   pillBottle: PillBottle,
@@ -16,7 +16,7 @@ type IconName = keyof typeof icons;
 
 type SecondaryButtonProps = {
     title: string;
-    color: keyof typeof colors;
+    connotation: 'save' | 'cancel';
     customJustify?: "center";
     leftIcon?: IconName;
     rightNumber?: number;
@@ -24,8 +24,7 @@ type SecondaryButtonProps = {
     onPress: () => void;
 }
 
-export default function SecondaryButton({ title, onPress, color, leftIcon, rightIcon, rightNumber, customJustify }: SecondaryButtonProps) {
-  const buttonColor = colors[color];
+export default function SecondaryButton({ title, onPress, connotation, leftIcon, rightIcon, rightNumber, customJustify }: SecondaryButtonProps) {
   const LeftIconComponent =  leftIcon ? icons[leftIcon] : null;
   const RightIconComponent =  rightIcon ? icons[rightIcon] : null;
 
@@ -33,31 +32,36 @@ export default function SecondaryButton({ title, onPress, color, leftIcon, right
     <TouchableOpacity 
       onPress={onPress}
       style={[
-        styles.buttonContainer, 
-        { backgroundColor: buttonColor, justifyContent: customJustify || 'space-between' },
-        { borderWidth: color=='redPrimary' ? 1 : 0}
+        connotation == 'cancel' ? styles.buttonContainerCancel : styles.buttonContainerSave,
+        { justifyContent: customJustify || 'space-between' }
       ]}
     >
       {LeftIconComponent && 
-        <LeftIconComponent color={color=='bluePrimary' ? 'white' : 'black'} />
+        <LeftIconComponent color={connotation == 'cancel' ? 'black' : 'white'} />
       }
-      <Text style={[styles.textContainer, {color: color=='bluePrimary' ? 'white' : 'black'}]}>{ title }</Text>
+      <Text style={connotation == 'cancel' ? styles.textContainerCancel : styles.textContainerSave}>{ title }</Text>
       {RightIconComponent && 
-        <RightIconComponent color={color=='bluePrimary' ? 'white' : 'black'} />
+        <RightIconComponent color={connotation == 'cancel' ? 'black' : 'white'}/>
       }
       {rightNumber !== undefined && (
-        <Text style={styles.textContainer}>{rightNumber}</Text>
+        <Text style={connotation == 'cancel' ? styles.textContainerCancel : styles.textContainerSave}>{rightNumber}</Text>
       )}
     </TouchableOpacity>
   )
 }
 
 const styles = StyleSheet.create({
-  textContainer: {
+  textContainerSave: {
     fontWeight: 'bold',
-    fontSize: 14
+    fontSize: 14,
+    color: 'white'
   },
-  buttonContainer: {
+  textContainerCancel: {
+    fontWeight: 'bold',
+    fontSize: 14,
+    color: 'black'
+  },
+  buttonContainerSave: {
     marginVertical: 8,
     display: 'flex',
     flexDirection: 'row',
@@ -66,6 +70,20 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     paddingHorizontal: 20,
     paddingVertical: 15,
-    gap: 15 
+    gap: 15,
+    backgroundColor: colors.bluePrimary 
+  },
+  buttonContainerCancel: {
+    marginVertical: 8,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderRadius: 4,
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    gap: 15,
+    backgroundColor: 'white', 
+    borderWidth: 1,
   }
 });
