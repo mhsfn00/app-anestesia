@@ -70,14 +70,14 @@ const Dosage = () => {
         <View className='flex-col w-full'>
           <SecondaryButton
             title='Medicação de Uso Contínuo'
-            color='bluePrimary'
+            connotation='save'
             leftIcon='pillBottle'
             rightNumber={0}
             onPress={()=>{}}
           />
           <SecondaryButton
             title='Outras Comorbidades'
-            color='bluePrimary'
+            connotation='save'
             leftIcon='heartPulse'
             rightNumber={0}
             onPress={()=>{}}

@@ -32,19 +32,19 @@ export default function SecondaryButton({ title, onPress, connotation, leftIcon,
     <TouchableOpacity 
       onPress={onPress}
       style={[
-        connotation == 'cancel' ? styles.buttonContainerCancel : styles.buttonContainerSave,
+        connotation === 'cancel' ? styles.buttonContainerCancel : styles.buttonContainerSave,
         { justifyContent: customJustify || 'space-between' }
       ]}
     >
       {LeftIconComponent && 
-        <LeftIconComponent color={connotation == 'cancel' ? 'black' : 'white'} />
+        <LeftIconComponent color={connotation === 'cancel' ? 'black' : 'white'} />
       }
-      <Text style={connotation == 'cancel' ? styles.textContainerCancel : styles.textContainerSave}>{ title }</Text>
+      <Text style={connotation === 'cancel' ? styles.textContainerCancel : styles.textContainerSave}>{ title }</Text>
       {RightIconComponent && 
-        <RightIconComponent color={connotation == 'cancel' ? 'black' : 'white'}/>
+        <RightIconComponent color={connotation === 'cancel' ? 'black' : 'white'}/>
       }
       {rightNumber !== undefined && (
-        <Text style={connotation == 'cancel' ? styles.textContainerCancel : styles.textContainerSave}>{rightNumber}</Text>
+        <Text style={connotation === 'cancel' ? styles.textContainerCancel : styles.textContainerSave}>{rightNumber}</Text>
       )}
     </TouchableOpacity>
   )
