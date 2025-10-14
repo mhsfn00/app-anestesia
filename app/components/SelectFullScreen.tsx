@@ -1,26 +1,38 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Checkbox } from 'react-native-paper';
 import { colors } from '../constants/colors';
 import DefaultActions from './DefaultActions';
 
-export default function SelectFullScreen() {
+type SelectProps = {
+    options: { label: string, value: boolean }[],
+    title: string,
+    handleCancel: () => void,
+    handleSave: () => void,
+    display: boolean
+}
+
+export default function SelectFullScreen({ options, title, handleCancel, handleSave, display }: SelectProps) {
   return (
-    <View style={styles.fullScreenContainer}>
-        <Checkbox.Item
-            label="Comorb 1"
-            status='unchecked'
-            onPress={() => {}}
-            labelStyle={{ fontSize: 16, fontWeight: '500', color: '#333' }}
-            color={colors.bluePrimary}
-        />
+    <View style={[styles.fullScreenContainer, { display: display ? 'flex' : 'none'}]}>
+        <Text>{title}</Text>
+        {options.map((option, index) => (
+            <Checkbox.Item
+                key={index}
+                label={option.label}
+                status={option.value ? "checked" : "unchecked"}
+                onPress={() => {}}
+                labelStyle={{ fontSize: 16, fontWeight: '500', color: '#333' }}
+                color={colors.bluePrimary}
+            />
+        ))}
         <DefaultActions
             greenButtonIcon='check'
             greenButtonlabel='Salvar'
-            onGreenPress={() => {console.log('Avançar')}}
+            onGreenPress={handleSave}
             redButtonIcon='x'
             redButtonLabel='Cancelar'
-            onRedPress={() => {console.log('Voltar')}}
+            onRedPress={handleCancel}
         />
     </View>
   );

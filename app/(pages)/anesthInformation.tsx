@@ -8,6 +8,14 @@ import SecondaryButton from '../components/SecondaryButton';
 import SelectFullScreen from '../components/SelectFullScreen';
 import { colors } from '../constants/colors';
 
+const comorbOptions = [
+  { label: "Doença hepática crônica", value: false },
+  { label: "Doença renal crônica", value: false },
+  { label: "Diabetes Mellitus", value: false },
+  { label: "Doença Respiratória crônica (DPOC/asma grave)", value: false },
+  { label: "Epilepsia", value: false }
+]
+
 const timeOptions = [
   { label: "< 60 minutos", value: "t<60"},
   { label: "1 - 2 horas", value: "1<t<2"},
@@ -21,6 +29,12 @@ const Dosage = () => {
   const [gestante, setGestante] = useState(false);
   const [showComorbSelect, setShowComorbSelect] = useState(false);
   const [gender , setGender] = useState<string>("");
+
+  const handleComorbSave = () => {
+    console.log(comorbOptions);
+    setShowComorbSelect(!showComorbSelect);
+  }
+
   const genderButtons = [
     { value: 'female', 
       label: 'Feminino',  
@@ -112,7 +126,13 @@ const Dosage = () => {
         </View>
       </View>
       
-      <SelectFullScreen />
+      <SelectFullScreen
+        display={showComorbSelect}
+        options={comorbOptions}
+        title="Comorbidades"
+        handleSave={handleComorbSave}
+        handleCancel={() => {setShowComorbSelect(!showComorbSelect)}}
+      />
 
       <DefaultActions
         onGreenPress={() => {console.log('Avançar')}}
