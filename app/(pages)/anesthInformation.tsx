@@ -5,6 +5,7 @@ import DefaultActions from '../components/DefaultActions';
 import DropDown from '../components/DropDown';
 import TextInputBlack from '../components/InputTextBlack';
 import SecondaryButton from '../components/SecondaryButton';
+import SelectFullScreen from '../components/SelectFullScreen';
 import { colors } from '../constants/colors';
 
 const timeOptions = [
@@ -18,6 +19,7 @@ const genderLabelStyle: TextStyle = { fontSize: 14, fontWeight: 700 };
 
 const Dosage = () => {
   const [gestante, setGestante] = useState(false);
+  const [showComorbSelect, setShowComorbSelect] = useState(false);
   const [gender , setGender] = useState<string>("");
   const genderButtons = [
     { value: 'female', 
@@ -80,7 +82,7 @@ const Dosage = () => {
             connotation='save'
             leftIcon='heartPulse'
             rightNumber={0}
-            onPress={()=>{}}
+            onPress={()=>{setShowComorbSelect(!showComorbSelect)}}
           />
         </View>
         <View className='flex-row'>
@@ -109,6 +111,9 @@ const Dosage = () => {
           </View>}
         </View>
       </View>
+      
+      <SelectFullScreen />
+
       <DefaultActions
         onGreenPress={() => {console.log('Avançar')}}
         onRedPress={() => {console.log('Voltar')}}
