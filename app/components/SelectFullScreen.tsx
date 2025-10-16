@@ -37,31 +37,39 @@ export default function SelectFullScreen({
         { display: display ? 'flex' : 'none' },
       ]}
     >
-      <Text style={styles.title}>{title}</Text>
-
-      <View style={styles.checkboxContainer}>
-        {options.map((option, index) => (
-          <Checkbox.Item
-            key={index}
-            label={option.label}
-            status={option.value ? 'checked' : 'unchecked'}
-            onPress={() => changeOptionValue(index)}
-            labelStyle={styles.label}
-            color={colors.bluePrimary}
-          />
-        ))}
+      <View style={styles.titleAndSelect}>
+        <Text style={styles.title}>{title}</Text>
+        <View style={styles.checkboxContainer}>
+          {options.map((option, index) => (
+            <Checkbox.Item
+              key={index}
+              label={option.label}
+              status={option.value ? 'checked' : 'unchecked'}
+              onPress={() => changeOptionValue(index)}
+              labelStyle={styles.label}
+              color={colors.bluePrimary}
+            />
+          ))}
+        </View>
       </View>
 
       <DefaultActions
         greenButtonIcon="check"
         greenButtonlabel="Voltar"
         onGreenPress={onClose}
+        customJustify="center"
       />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  titleAndSelect: {
+    flex: 1,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   fullScreenContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -80,8 +88,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   checkboxContainer: {
-    flex: 1,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
   },
   label: {
     fontSize: 16,

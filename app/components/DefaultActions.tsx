@@ -9,6 +9,7 @@ type DefaultActionProps = {
     redButtonLabel?: string;
     greenButtonIcon?: 'arrowRight' | 'check';
     redButtonIcon?: 'arrowLeft' | 'x';
+    customJustify?: "center" | "between";
 }
 
 export default function DefaultActions({ 
@@ -17,11 +18,13 @@ export default function DefaultActions({
     greenButtonlabel = 'Avançar',
     redButtonLabel = 'Voltar',
     greenButtonIcon = 'arrowRight',
-    redButtonIcon = 'arrowLeft' 
+    redButtonIcon = 'arrowLeft',
+    customJustify = "between" 
 }: DefaultActionProps) {
     return (
-        <View className='flex-row w-full justify-between my-8'>
-            <View className='w-2/5'>
+        <View className='flex-row w-full justify-between my-8' 
+            style={{justifyContent: customJustify === "center" ? "center" : "space-between"}}>
+            <View className='w-2/5' style={{display: customJustify === "center" ? "none" : "flex"}}>
                 <SecondaryButton
                 title={redButtonLabel}
                 leftIcon={redButtonIcon}
