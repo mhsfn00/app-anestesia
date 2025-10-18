@@ -24,15 +24,11 @@ const Dosage = () => {
     { label: "Diabetes Mellitus", value: false },
     { label: "Doença Respiratória crônica (DPOC/asma grave)", value: false },
     { label: "Epilepsia", value: false }  
-  ])
+  ]);
+  const comorbCount = comorbOptions.filter(cmb => cmb.value).length
   const [gestante, setGestante] = useState(false);
   const [showComorbSelect, setShowComorbSelect] = useState(false);
   const [gender , setGender] = useState<string>("");
-
-  const handleComorbSave = () => {
-    console.log(comorbOptions);
-    setShowComorbSelect(!showComorbSelect);
-  }
 
   const genderButtons = [
     { value: 'female', 
@@ -94,7 +90,7 @@ const Dosage = () => {
             title='Outras Comorbidades'
             connotation='save'
             leftIcon='heartPulse'
-            rightNumber={0}
+            rightNumber={comorbCount}
             onPress={()=>{setShowComorbSelect(!showComorbSelect)}}
           />
         </View>
