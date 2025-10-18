@@ -5,6 +5,7 @@ import DefaultActions from '../components/DefaultActions';
 import DropDown from '../components/DropDown';
 import TextInputBlack from '../components/InputTextBlack';
 import SecondaryButton from '../components/SecondaryButton';
+import SelectFullScreen from '../components/SelectFullScreen';
 import { colors } from '../constants/colors';
 
 const timeOptions = [
@@ -17,8 +18,18 @@ const timeOptions = [
 const genderLabelStyle: TextStyle = { fontSize: 14, fontWeight: 700 };
 
 const Dosage = () => {
+  const [comorbOptions, setComorbOptions] = useState([
+    { label: "Doença hepática crônica", value: false },
+    { label: "Doença renal crônica", value: false },
+    { label: "Diabetes Mellitus", value: false },
+    { label: "Doença Respiratória crônica (DPOC/asma grave)", value: false },
+    { label: "Epilepsia", value: false }  
+  ]);
+  const comorbCount = comorbOptions.filter(cmb => cmb.value).length
   const [gestante, setGestante] = useState(false);
+  const [showComorbSelect, setShowComorbSelect] = useState(false);
   const [gender , setGender] = useState<string>("");
+
   const genderButtons = [
     { value: 'female', 
       label: 'Feminino',  
@@ -79,8 +90,8 @@ const Dosage = () => {
             title='Outras Comorbidades'
             connotation='save'
             leftIcon='heartPulse'
-            rightNumber={0}
-            onPress={()=>{}}
+            rightNumber={comorbCount}
+            onPress={()=>{setShowComorbSelect(!showComorbSelect)}}
           />
         </View>
         <View className='flex-row'>
@@ -109,6 +120,15 @@ const Dosage = () => {
           </View>}
         </View>
       </View>
+      
+      <SelectFullScreen
+        display={showComorbSelect}
+        options={comorbOptions}
+        onChangeOptions={setComorbOptions}
+        onClose={() => setShowComorbSelect(false)}
+        title="Comorbidades"
+      />
+
       <DefaultActions
         onGreenPress={() => {console.log('Avançar')}}
         onRedPress={() => {console.log('Voltar')}}
