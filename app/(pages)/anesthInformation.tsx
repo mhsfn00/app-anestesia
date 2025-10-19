@@ -8,6 +8,10 @@ import SecondaryButton from '../components/SecondaryButton';
 import SelectFullScreen from '../components/SelectFullScreen';
 import { colors } from '../constants/colors';
 
+import { router } from 'expo-router';
+import { comorbidityOptions } from '../stores/options';
+import { useAnesthStore } from '../stores/useAnesthStore';
+
 const timeOptions = [
   { label: "< 60 minutos", value: "t<60"},
   { label: "1 - 2 horas", value: "1<t<2"},
@@ -18,14 +22,15 @@ const timeOptions = [
 const genderLabelStyle: TextStyle = { fontSize: 14, fontWeight: 700 };
 
 const Dosage = () => {
-  const [comorbOptions, setComorbOptions] = useState([
-    { label: "Doença hepática crônica", value: false },
-    { label: "Doença renal crônica", value: false },
-    { label: "Diabetes Mellitus", value: false },
-    { label: "Doença Respiratória crônica (DPOC/asma grave)", value: false },
-    { label: "Epilepsia", value: false }  
-  ]);
+  const calculate = () => {
+    /* to print all the data so far */
+    console.log(comorbOptions);
+  }
+
+  const comorbOptions = useAnesthStore(state => state.comorbidities);
+  const setComorbOptions = useAnesthStore(state => state.setComorbidities);
   const comorbCount = comorbOptions.filter(cmb => cmb.value).length
+
   const [gestante, setGestante] = useState(false);
   const [showComorbSelect, setShowComorbSelect] = useState(false);
   const [gender , setGender] = useState<string>("");
@@ -123,15 +128,15 @@ const Dosage = () => {
       
       <SelectFullScreen
         display={showComorbSelect}
-        options={comorbOptions}
-        onChangeOptions={setComorbOptions}
+        options={comorbidityOptions}
+        onChangeOptions={(selected) => setComorbOptions(selected)}
         onClose={() => setShowComorbSelect(false)}
         title="Comorbidades"
       />
 
       <DefaultActions
-        onGreenPress={() => {console.log('Avançar')}}
-        onRedPress={() => {console.log('Voltar')}}
+        onGreenPress={calculate}
+        onRedPress={router.back}
       />
     </View>
   )
