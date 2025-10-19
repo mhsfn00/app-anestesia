@@ -89,14 +89,14 @@ const Dosage = () => {
             connotation='save'
             leftIcon='pillBottle'
             rightNumber={0}
-            onPress={()=>{}}
+            onPress={() => router.navigate('/contUseMedications')}
           />
           <SecondaryButton
             title='Outras Comorbidades'
             connotation='save'
             leftIcon='heartPulse'
             rightNumber={comorbCount}
-            onPress={()=>{setShowComorbSelect(!showComorbSelect)}}
+            onPress={()=>setShowComorbSelect(!showComorbSelect)}
           />
         </View>
         <View className='flex-row'>

@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    gap: 26
   },
   fullScreenContainer: {
     display: 'flex',
@@ -89,6 +90,7 @@ const styles = StyleSheet.create({
   },
   checkboxContainer: {
     justifyContent: 'center',
+    gap: 10
   },
   label: {
     fontSize: 16,
