@@ -31,6 +31,12 @@ const Dosage = () => {
   const setComorbOptions = useAnesthStore(state => state.setComorbidities);
   const comorbCount = comorbOptions.filter(cmb => cmb.value).length
 
+  const continuousMedCount = useAnesthStore(state => 
+    state.antiArrhythmics.filter(o => o.value).length +
+    state.antiCoagulants.filter(o => o.value).length +
+    state.antiPlatelets.filter(o => o.value).length
+  )
+
   const [gestante, setGestante] = useState(false);
   const [showComorbSelect, setShowComorbSelect] = useState(false);
   const [gender , setGender] = useState<string>("");
@@ -88,7 +94,7 @@ const Dosage = () => {
             title='Medicação de Uso Contínuo'
             connotation='save'
             leftIcon='pillBottle'
-            rightNumber={0}
+            rightNumber={continuousMedCount}
             onPress={() => router.navigate('/contUseMedications')}
           />
           <SecondaryButton

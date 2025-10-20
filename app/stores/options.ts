@@ -15,14 +15,20 @@ export const antiArrhythmicOptions = [
   { label: 'Verapamil (Isoptin®), Diltiazem (Cardizem®)', value: false },
 ];
 
-const antiCoagOptions = [
-  { label: 'Metformina', value: false },
-  { label: 'Glibenclamida', value: false },
-  { label: 'Insulina', value: false },
+export const antiCoagulantOptions = [
+  { label: 'Varfarina (Marevan®)', value: false },
+  { label: 'Apixabana (Eliquis®)', value: false },
+  { label: 'Rivaroxabana (Xarelto®)', value: false },
+  { label: 'Dabigatrana (Pradaxa®)', value: false },
+  { label: 'Edoxabana (Lixiana®)', value: false }
 ];
 
-const antiAgregOptions = [
-  { label: 'Warfarina', value: false },
-  { label: 'Apixabana', value: false },
-  { label: 'Rivaroxabana', value: false },
+export const antiAggregantOptions = [
+  { label: 'Ácido acetilsalicílico – AAS (Aspirina®, Melhoral®, AAS Infantil®)', value: false },
+  { label: 'Clopidogrel (Plavix®, Clopidrix®)', value: false },
+  { label: 'Prasugrel (Efient®)', value: false },
+  { label: 'Ticlopidina (Ticlid®)', value: false },
+  { label: 'Ticagrelor (Brilinta®)', value: false },
+  { label: 'Dipiridamol (Persantin® / Aggrenox®)', value: false },
+  { label: 'Cilostazol (Pletal®)', value: false }
 ];
