@@ -132,13 +132,14 @@ const Dosage = () => {
         </View>
       </View>
       
-      <SelectFullScreen
-        display={showComorbSelect}
-        options={comorbidityOptions}
-        onChangeOptions={(selected) => setComorbOptions(selected)}
-        onClose={() => setShowComorbSelect(false)}
-        title="Comorbidades"
-      />
+      {showComorbSelect && (
+        <SelectFullScreen
+          options={comorbidityOptions}
+          onChangeOptions={(selected) => setComorbOptions(selected)}
+          onClose={() => setShowComorbSelect(false)}
+          title="Comorbidades"
+        />
+      )}
 
       <DefaultActions
         onGreenPress={calculate}

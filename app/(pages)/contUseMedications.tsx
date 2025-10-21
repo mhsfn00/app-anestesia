@@ -51,27 +51,30 @@ export default function ContUseMedications() {
                     onPress={() => setShowAgregSelect(!showAgregSelect)}
                 />
             </View>
-            <SelectFullScreen 
-                display={showArrhythSelect}
-                options={antiArrhythmicOptions}
-                onChangeOptions={(selected) => setAntiArrhythOptions(selected)}
-                onClose={() => setShowArrhythSelect(false)}
-                title="Antiarrítmicos"
-            />
-            <SelectFullScreen 
-                display={showCoagSelect}
-                options={antiCoagulantOptions}
-                onChangeOptions={(selected) => setAntiCoagOptions(selected)}
-                onClose={() => setShowCoagSelect(false)}
-                title="Anticoagulantes Orais"
-            />
-            <SelectFullScreen 
-                display={showAgregSelect}
-                options={antiAggregantOptions}
-                onChangeOptions={(selected) => setAntiPlateletsOptions(selected)}
-                onClose={() => setShowAgregSelect(false)}
-                title="Antiagregantes Plaquetários"
-            />
+            {showArrhythSelect && (
+                <SelectFullScreen 
+                    options={antiArrhythmicOptions}
+                    onChangeOptions={(selected) => setAntiArrhythOptions(selected)}
+                    onClose={() => setShowArrhythSelect(false)}
+                    title="Antiarrítmicos"
+                />
+            )}
+            {showCoagSelect && (
+                <SelectFullScreen 
+                    options={antiCoagulantOptions}
+                    onChangeOptions={(selected) => setAntiCoagOptions(selected)}
+                    onClose={() => setShowCoagSelect(false)}
+                    title="Anticoagulantes Orais"
+                />
+            )}
+            {showAgregSelect && (
+                <SelectFullScreen 
+                    options={antiAggregantOptions}
+                    onChangeOptions={(selected) => setAntiPlateletsOptions(selected)}
+                    onClose={() => setShowAgregSelect(false)}
+                    title="Antiagregantes Plaquetários"
+                />
+            )}
             <DefaultActions
                 greenButtonIcon="check"
                 greenButtonlabel="Voltar"
