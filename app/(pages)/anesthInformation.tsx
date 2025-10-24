@@ -31,6 +31,12 @@ const Dosage = () => {
   const setComorbOptions = useAnesthStore(state => state.setComorbidities);
   const comorbCount = comorbOptions.filter(cmb => cmb.value).length
 
+  const continuousMedCount = useAnesthStore(state => 
+    state.antiArrhythmics.filter(o => o.value).length +
+    state.antiCoagulants.filter(o => o.value).length +
+    state.antiPlatelets.filter(o => o.value).length
+  )
+
   const [gestante, setGestante] = useState(false);
   const [showComorbSelect, setShowComorbSelect] = useState(false);
   const [gender , setGender] = useState<string>("");
@@ -88,15 +94,15 @@ const Dosage = () => {
             title='Medicação de Uso Contínuo'
             connotation='save'
             leftIcon='pillBottle'
-            rightNumber={0}
-            onPress={()=>{}}
+            rightNumber={continuousMedCount}
+            onPress={() => router.navigate('/contUseMedications')}
           />
           <SecondaryButton
             title='Outras Comorbidades'
             connotation='save'
             leftIcon='heartPulse'
             rightNumber={comorbCount}
-            onPress={()=>{setShowComorbSelect(!showComorbSelect)}}
+            onPress={()=>setShowComorbSelect(!showComorbSelect)}
           />
         </View>
         <View className='flex-row'>
@@ -126,13 +132,14 @@ const Dosage = () => {
         </View>
       </View>
       
-      <SelectFullScreen
-        display={showComorbSelect}
-        options={comorbidityOptions}
-        onChangeOptions={(selected) => setComorbOptions(selected)}
-        onClose={() => setShowComorbSelect(false)}
-        title="Comorbidades"
-      />
+      {showComorbSelect && (
+        <SelectFullScreen
+          options={comorbidityOptions}
+          onChangeOptions={(selected) => setComorbOptions(selected)}
+          onClose={() => setShowComorbSelect(false)}
+          title="Comorbidades"
+        />
+      )}
 
       <DefaultActions
         onGreenPress={calculate}

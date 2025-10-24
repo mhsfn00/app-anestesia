@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useCallback, useState } from 'react';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { Checkbox } from 'react-native-paper';
 import { colors } from '../constants/colors';
 import DefaultActions from './DefaultActions';
@@ -13,7 +13,6 @@ type SelectProps = {
   options: Option[];
   onChangeOptions: (newOptions: Option[]) => void;
   title: string;
-  display: boolean;
   onClose: () => void;
 };
 
@@ -21,56 +20,57 @@ export default function SelectFullScreen({
   options,
   onChangeOptions,
   title,
-  display,
   onClose,
 }: SelectProps) {
-  const changeOptionValue = (index: number) => {
-    const newOptions = [...options];
-    newOptions[index].value = !newOptions[index].value;
-    onChangeOptions(newOptions);
+  const [localOptions, setLocalOptions] = useState<Option[]>(options);
+
+  const changeOptionValue = useCallback((index: number) => {
+    setLocalOptions(prev => {
+      const updated = [...prev];
+      updated[index].value = !updated[index].value;
+      return updated;
+    });
+  }, []);
+
+  const handleSave = () => {
+    onChangeOptions(localOptions);
+    onClose();
   };
 
-  return (
-    <View
-      style={[
-        styles.fullScreenContainer,
-        { display: display ? 'flex' : 'none' },
-      ]}
-    >
-      <View style={styles.titleAndSelect}>
-        <Text style={styles.title}>{title}</Text>
-        <View style={styles.checkboxContainer}>
-          {options.map((option, index) => (
-            <Checkbox.Item
-              key={index}
-              label={option.label}
-              status={option.value ? 'checked' : 'unchecked'}
-              onPress={() => changeOptionValue(index)}
-              labelStyle={styles.label}
-              color={colors.bluePrimary}
-            />
-          ))}
-        </View>
-      </View>
+  const renderItem = useCallback(
+    ({ item, index }: { item: Option; index: number }) => (
+      <Checkbox.Item
+        label={item.label}
+        status={item.value ? 'checked' : 'unchecked'}
+        onPress={() => changeOptionValue(index)}
+        labelStyle={styles.label}
+        color={colors.bluePrimary}
+      />
+    ),
+    [changeOptionValue]
+  );
 
+  return (
+    <View style={styles.fullScreenContainer}>
+      <Text style={styles.title}>{title}</Text>
+      <FlatList
+        data={localOptions}
+        keyExtractor={(_, i) => i.toString()}
+        renderItem={renderItem}
+        contentContainerStyle={styles.listContainer}
+      />
       <DefaultActions
         greenButtonIcon="check"
         greenButtonlabel="Voltar"
-        onGreenPress={onClose}
-        customJustify="center"
+        onGreenPress={handleSave}
+        customJustify='center'
       />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  titleAndSelect: {
-    flex: 1,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  fullScreenContainer: {
+    fullScreenContainer: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -81,14 +81,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingVertical: 20,
   },
-  title: {
-    fontSize: 20,
-    fontWeight: '600',
-    textAlign: 'center',
-    marginVertical: 10,
+  listContainer: {
+    paddingBottom: 24,
   },
-  checkboxContainer: {
-    justifyContent: 'center',
+  title: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginBottom: 26,
+    textAlign: 'center'
   },
   label: {
     fontSize: 16,

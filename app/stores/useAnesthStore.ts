@@ -7,22 +7,22 @@ export type Option = {
 
 type AnesthState = {
     comorbidities: Option[];
-    continuousMeds: {
-        antiHypertensives: Option[];
-        antiDiabetics: Option[];
-        antiCoagulants: Option[];
-    };
+    antiArrhythmics: Option[];
+    antiCoagulants: Option[];
+    antiPlatelets: Option[];
     setComorbidities: (options: Option[]) => void;
-    setContinuousMeds: (newMeds: AnesthState['continuousMeds']) => void;
+    setAntiArrhythmics: (options: Option[]) => void;
+    setAntiCoagulants: (options: Option[]) => void;
+    setAntiPlatelets: (options: Option[]) => void;
 };
 
 export const useAnesthStore = create<AnesthState>((set) => ({
     comorbidities: [],
-    continuousMeds: {
-        antiHypertensives: [],
-        antiDiabetics: [],
-        antiCoagulants: []
-    },
+    antiArrhythmics: [],
+    antiCoagulants: [],
+    antiPlatelets: [],
     setComorbidities: (options) => set({ comorbidities: options }),
-    setContinuousMeds: (newMeds) => set({ continuousMeds: newMeds })
+    setAntiArrhythmics: (options) => set({ antiArrhythmics: options }),
+    setAntiCoagulants: (options) => set({ antiCoagulants: options }),
+    setAntiPlatelets: (options) => set({ antiPlatelets: options })
 }));
