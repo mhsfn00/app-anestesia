@@ -24,23 +24,47 @@ const genderLabelStyle: TextStyle = { fontSize: 14, fontWeight: 700 };
 const Dosage = () => {
   const calculate = () => {
     /* to print all the data so far */
-    console.log(comorbOptions);
+
+    const infoForDosageCalculation = {
+      "person": {
+        "personsIdentification": personsIdentification,
+        "personsAge": personsAge,
+        "personsWeight": personsWeight,
+        "pregnancy": pregnancy
+      },
+      "comorbidities": comorbOptions,
+      "continuousMedications": continuousMedications,
+      "expectedTime": expectedTime
+    }
+
+    console.log(JSON.stringify(infoForDosageCalculation, null, 2));
   }
 
-  const comorbOptions = useAnesthStore(state => state.comorbidities);
+  const comorbOptions = 
+    useAnesthStore(state => state.comorbidities)
+    .filter(o => o.value);
+  const continuousMedications = 
+    useAnesthStore(state => state.antiArrhythmics)
+    .concat(useAnesthStore(state=> state.antiCoagulants))
+    .concat(useAnesthStore(state=> state.antiPlatelets))
+    .filter(o => o.value);
+
   const setComorbOptions = useAnesthStore(state => state.setComorbidities);
   const comorbCount = comorbOptions.filter(cmb => cmb.value).length
-
   const continuousMedCount = useAnesthStore(state => 
     state.antiArrhythmics.filter(o => o.value).length +
     state.antiCoagulants.filter(o => o.value).length +
     state.antiPlatelets.filter(o => o.value).length
   )
 
-  const [gestante, setGestante] = useState(false);
-  const [showComorbSelect, setShowComorbSelect] = useState(false);
+  const [pregnancy, setPregnancy] = useState(false);
   const [gender , setGender] = useState<string>("");
-
+  const [personsIdentification,  setPersonsIdentification] = useState<string>("");
+  const [personsAge, setPersonsAge] = useState<number>(-1);
+  const [personsWeight, setPersonsWeight] = useState<number>(-1);
+  const [expectedTime, setExpectedTime] = useState<string>("");
+  
+  const [showComorbSelect, setShowComorbSelect] = useState(false);
   const genderButtons = [
     { value: 'female', 
       label: 'Feminino',  
@@ -123,8 +147,8 @@ const Dosage = () => {
             <View style={{ borderWidth: 1, borderRadius: 5, marginVertical: 16 }}>
             <Checkbox.Item
               label="Gestante"
-              status={gestante ? 'checked' : 'unchecked'}
-              onPress={() => {setGestante(!gestante)}}
+              status={pregnancy ? 'checked' : 'unchecked'}
+              onPress={() => {setPregnancy(!pregnancy)}}
               labelStyle={{ fontSize: 16, fontWeight: '500', color: '#333' }}
               color={colors.bluePrimary}
             />
