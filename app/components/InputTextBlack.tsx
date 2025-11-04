@@ -4,13 +4,17 @@ import { colors } from '../constants/colors';
 
 type InputProps = {
     label: string;
+    value: string;
+    onChangeText: (text: string) => void;
 }
 
-const InputTextBlack = ({ label }: InputProps) => {
+const InputTextBlack = ({ label, value, onChangeText }: InputProps) => {
   return (
     <TextInput
         mode='outlined'
         label={label}
+        value={value}
+        onChangeText={onChangeText}
         outlineColor='black'
         activeOutlineColor='black'
         style={{ 

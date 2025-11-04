@@ -8,16 +8,17 @@ interface DropDownProps {
     data: OptionItem[];
     onChange: (item: OptionItem) => void;
     placeholder: string;
+    value: string;
 }
 
-export default function DropDown({data, onChange, placeholder}: DropDownProps) {
+export default function DropDown({ data, onChange, placeholder, value }: DropDownProps) {
     const [expanded, setExpanded] = useState(false);
+
     const toggleExpanded = useCallback(() => setExpanded(!expanded), [expanded]);
-    const [value, setValue] = useState("");
+    const selectedLabel = data.find(item => item.value === value)?.label || placeholder;
 
     const onSelect = useCallback((item: OptionItem) => {
         onChange(item);
-        setValue(item.label);
         setExpanded(false);
     }, [onChange]);
 
@@ -29,7 +30,7 @@ export default function DropDown({data, onChange, placeholder}: DropDownProps) {
                 onPress={toggleExpanded}
             >
                 <Text style={styles.text}>
-                    {value || placeholder}
+                    {selectedLabel}
                 </Text>
                 <AntDesign name={ expanded ? "caret-up" : "caret-down" } />
             </TouchableOpacity>

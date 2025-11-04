@@ -60,8 +60,8 @@ const Dosage = () => {
   const [pregnancy, setPregnancy] = useState(false);
   const [gender , setGender] = useState<string>("");
   const [personsIdentification,  setPersonsIdentification] = useState<string>("");
-  const [personsAge, setPersonsAge] = useState<number>(-1);
-  const [personsWeight, setPersonsWeight] = useState<number>(-1);
+  const [personsAge, setPersonsAge] = useState<string>("");
+  const [personsWeight, setPersonsWeight] = useState<string>("");
   const [expectedTime, setExpectedTime] = useState<string>("");
   
   const [showComorbSelect, setShowComorbSelect] = useState(false);
@@ -103,14 +103,20 @@ const Dosage = () => {
         <View className='flex-row'>
           <TextInputBlack
             label='Identificação do Paciente'
+            value={personsIdentification}
+            onChangeText={setPersonsIdentification}
           />
         </View>
         <View className='flex-row gap-5'>
           <TextInputBlack
             label='Idade'
+            value={personsAge}
+            onChangeText={setPersonsAge}
           />
           <TextInputBlack
             label='Peso (Kg.g)'
+            value={personsWeight}
+            onChangeText={setPersonsWeight}
           />
         </View>
         <View className='flex-col w-full'>
@@ -133,7 +139,8 @@ const Dosage = () => {
           <DropDown
             data={timeOptions}
             placeholder='Tempo aproximado de sutura'
-            onChange={()=>{}}
+            value={expectedTime}
+            onChange={(item) => setExpectedTime(item.value)}
           />
         </View>
         <View className='flex-col w-full'>
