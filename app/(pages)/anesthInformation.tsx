@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { Text, TextStyle, View } from 'react-native';
 import { Checkbox, SegmentedButtons } from 'react-native-paper';
@@ -7,8 +8,7 @@ import TextInputBlack from '../components/InputTextBlack';
 import SecondaryButton from '../components/SecondaryButton';
 import SelectFullScreen from '../components/SelectFullScreen';
 import { colors } from '../constants/colors';
-
-import { router } from 'expo-router';
+import { AnestheticDrug } from '../constants/medications';
 import { comorbidityOptions } from '../stores/options';
 import { useAnesthStore } from '../stores/useAnesthStore';
 
@@ -18,13 +18,21 @@ const timeOptions = [
   { label: "2 - 4 horas", value: "2<t<4"},
   { label: "> 4 horas", value: "4<t"}
 ]
-
 const genderLabelStyle: TextStyle = { fontSize: 14, fontWeight: 700 };
 
+function calculateMaxDose(drug: AnestheticDrug, weightKg: number) {
+  return drug.maxDoseMgPerKg * weightKg;
+}
+
+function calculateMaxVolume(drug: AnestheticDrug, weightKg: number, concentrationMgPerMl: number) {
+  const maxDose = calculateMaxDose(drug, weightKg);
+  return maxDose / concentrationMgPerMl; // in mL
+}
+
 const Dosage = () => {
+
   const calculate = () => {
     /* to print all the data so far */
-
     const infoForDosageCalculation = {
       "person": {
         "personsIdentification": personsIdentification,
