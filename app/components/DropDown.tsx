@@ -2,13 +2,13 @@ import { AntDesign } from '@expo/vector-icons';
 import React, { useCallback, useState } from 'react';
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-type OptionItem = { value: string; label: string};
+type OptionItem = { value: number; label: string};
 
 interface DropDownProps {
     data: OptionItem[];
     onChange: (item: OptionItem) => void;
     placeholder: string;
-    value: string;
+    value: number;
 }
 
 export default function DropDown({ data, onChange, placeholder, value }: DropDownProps) {
@@ -37,7 +37,7 @@ export default function DropDown({ data, onChange, placeholder, value }: DropDow
             { expanded ? (
                 <View style={styles.options}>
                     <FlatList
-                        keyExtractor = {(item) => item.value}
+                        keyExtractor = {(item) => item.value.toString()}
                         data={data}
                         renderItem={({ item }) => (
                             <TouchableOpacity 

@@ -2,12 +2,8 @@ import React, { useCallback, useState } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { Checkbox } from 'react-native-paper';
 import { colors } from '../constants/colors';
+import { Option } from '../stores/useAnesthStore';
 import DefaultActions from './DefaultActions';
-
-type Option = {
-  label: string;
-  value: boolean;
-};
 
 type SelectProps = {
   options: Option[];

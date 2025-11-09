@@ -1,9 +1,25 @@
 import { create } from 'zustand';
 
+export type Comorbidity = 
+    | 'hepatic'
+    | 'renal'
+    | 'cardiac'
+    | 'respiratory'
+    | 'diabetes'
+    | 'epilepsy';
+
 export type Option = {
     label: string;
+    effect: Comorbidity;
     value: boolean;
 }
+
+export type ComorbidityFlagsInput = {
+  comorbidityOptions: Option[];
+  antiArrhythmicOptions: Option[];
+  antiCoagulantOptions: Option[];
+  antiAggregantOptions: Option[];
+};
 
 type AnesthState = {
     comorbidities: Option[];

@@ -14,7 +14,7 @@ export const anesthetics: AnestheticDrug[] = [
     name: 'Lidocaine',
     concentrationMgPerMl: [10, 20],
     maxDoseMgPerKg: 5,
-    durationHours: [1, 2],
+    durationHours: [0, 2],
     cardioRisk: 'low',
     notes: 'Can increase to 7 mg/kg with vasoconstrictor.'
   },
@@ -29,7 +29,7 @@ export const anesthetics: AnestheticDrug[] = [
     name: 'Articaine',
     concentrationMgPerMl: [40],
     maxDoseMgPerKg: 7,
-    durationHours: [1, 2],
+    durationHours: [0, 2],
     cardioRisk: 'low'
   },
   {

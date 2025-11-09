@@ -8,26 +8,19 @@ import TextInputBlack from '../components/InputTextBlack';
 import SecondaryButton from '../components/SecondaryButton';
 import SelectFullScreen from '../components/SelectFullScreen';
 import { colors } from '../constants/colors';
-import { AnestheticDrug } from '../constants/medications';
 import { comorbidityOptions } from '../stores/options';
-import { useAnesthStore } from '../stores/useAnesthStore';
+import { Comorbidity, useAnesthStore } from '../stores/useAnesthStore';
+
+import { PatientInput, recommendAnesthetic } from '../utils/recommendationEngine';
+
 
 const timeOptions = [
-  { label: "< 60 minutos", value: "t<60"},
-  { label: "1 - 2 horas", value: "1<t<2"},
-  { label: "2 - 4 horas", value: "2<t<4"},
-  { label: "> 4 horas", value: "4<t"}
+  { label: "< 60 minutos", value: 0.5},
+  { label: "1 - 2 horas", value: 1.5},
+  { label: "2 - 4 horas", value: 3},
+  { label: "> 4 horas", value: 4.5}
 ]
 const genderLabelStyle: TextStyle = { fontSize: 14, fontWeight: 700 };
-
-function calculateMaxDose(drug: AnestheticDrug, weightKg: number) {
-  return drug.maxDoseMgPerKg * weightKg;
-}
-
-function calculateMaxVolume(drug: AnestheticDrug, weightKg: number, concentrationMgPerMl: number) {
-  const maxDose = calculateMaxDose(drug, weightKg);
-  return maxDose / concentrationMgPerMl; // in mL
-}
 
 const Dosage = () => {
 
@@ -45,7 +38,19 @@ const Dosage = () => {
       "expectedTime": expectedTime
     }
 
+    const userInput: PatientInput = {
+      age: Number(personsAge),
+      weightKg: Number(personsWeight),
+      isPregnant: pregnancy,
+      durationHours: expectedTime,
+      comorbidities: selectedComorbidities
+    } 
+
+    const result = recommendAnesthetic(userInput)
+
     console.log(JSON.stringify(infoForDosageCalculation, null, 2));
+
+    console.log(result);
   }
 
   const comorbOptions = 
@@ -56,6 +61,24 @@ const Dosage = () => {
     .concat(useAnesthStore(state=> state.antiCoagulants))
     .concat(useAnesthStore(state=> state.antiPlatelets))
     .filter(o => o.value);
+  
+  const selectedComorbidities: Comorbidity[] = [
+      ...useAnesthStore(state => state.comorbidities)
+        .filter(o => o.value && o.effect)
+        .map(o => o.effect!),
+
+      ...useAnesthStore(state => state.antiArrhythmics)
+        .filter(o => o.value && o.effect)
+        .map(o => o.effect!),
+
+      ...useAnesthStore(state => state.antiCoagulants)
+        .filter(o => o.value && o.effect)
+        .map(o => o.effect!),
+
+      ...useAnesthStore(state => state.antiPlatelets)
+        .filter(o => o.value && o.effect)
+        .map(o => o.effect!)
+    ];
 
   const setComorbOptions = useAnesthStore(state => state.setComorbidities);
   const comorbCount = comorbOptions.filter(cmb => cmb.value).length
@@ -70,7 +93,7 @@ const Dosage = () => {
   const [personsIdentification,  setPersonsIdentification] = useState<string>("");
   const [personsAge, setPersonsAge] = useState<string>("");
   const [personsWeight, setPersonsWeight] = useState<string>("");
-  const [expectedTime, setExpectedTime] = useState<string>("");
+  const [expectedTime, setExpectedTime] = useState<number>(-1);
   
   const [showComorbSelect, setShowComorbSelect] = useState(false);
   const genderButtons = [
